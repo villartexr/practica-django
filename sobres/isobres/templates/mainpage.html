@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>{{titlehead}} </title>
+	</head>
+	<body>
+		<h1>{{pagetitle}}</h1>
+	</body>
+	
+		{%if user.username%}
+	<p>	
+
+		Benvingut {{user.username}}!
+		aquí podra gestionar els sobres
+	</p>
+	{%else%}
+	<p>benvingut no ningu:
+	obligatori fer <a href="/login/">sign in</a>per gestionar sobres 
+	</p>
+	{%endif%}
+</body>
+</html>
