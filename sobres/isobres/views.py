@@ -4,6 +4,8 @@ from django.template import Context
 from django.template.loader import get_template
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
+from isobres.models import *
+
 def mainpage(request):
 	return render_to_response(
 		'mainpage.html', {
@@ -28,4 +30,25 @@ def userpage(request):
 
 		})
 	output = template.render(variables)
+	return HttpResponse(output)
+
+def titulacio(request):
+	try:
+		tit = Titulacio.objects.all()
+		curs = Curs.objects.all()
+		aula = Aula.objects.all()
+		alumne = Alumne.objects.all()
+		p = Professor.objects.all()
+	except:
+		raise Http404('Informacio not found')
+	template = get_template('titulacio.html')
+	var = Context({
+		'titulacio': tit,
+		'curs':curs,
+		'aula':aula,
+		'alumne':alumne,
+		'prof':p,
+		})
+
+	output = template.render(var)
 	return HttpResponse(output)
