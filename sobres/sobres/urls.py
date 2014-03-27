@@ -41,7 +41,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
 
-    url(r'^', include(router.urls)),
+    url(r'^a', include(router.urls)),
     url(r'^api-restful/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', mainpage, name='home'),

@@ -21,7 +21,7 @@ def mainpage(request):
 	#output = template.render(variables)
 	#return HttpResponse(output)
 
-def userpage(request):
+def userpage(request, username):
 	try:
 		user = User.objects.get(username=username)
 	except:

@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>Informacio de la Base de Dades</title>
+</head>
+	<body>
+	<h1>Aules existens</h1>
+	{% if aula %}
+	
+	<ul>
+		{%for a in aula%}
+		<li>
+			<a href="/aules/{{a.id}}">{{a.name}}</a>
+		</li>
+		{%endfor%}
+	</ul>
+	{% else %}
+	<p>No aules.</p>
+	{% endif %}
+	</body>
+</html>
