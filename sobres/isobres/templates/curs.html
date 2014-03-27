@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>{{capcalera}}</title>
+	</head>
+<body>
+{%if curs%}	
+<h1>{{titol}} {{curs.year}}</h1>
+	<ul>
+		<li>
+			Titulacio a la qual pertany: {{curs.titulacio}}
+		</li>
+	</ul>
+	<a href="/cursos/{{curs.id}}/?format=json">Veure informació en format JSON</a>
+{%else%}
+<p>L'informacio del curs encara no esta disponible</p>
+{%endif%}
+</body>
+</html>

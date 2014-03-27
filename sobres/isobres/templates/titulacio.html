@@ -1,73 +1,18 @@
-
 <html>
 <head>
-<title>Informacio de la Base de Dades</title>
+<title>{{capcalera}}</title>
 	</head>
-	<body>
-	<h1>Titulacions existens</h1>
-	{% if titulacio %}
+<body>
+{%if titulacio%}	
+<h1>{{titol}} {{titulacio.name}}</h1>
 	<ul>
-	{% for t in titulacio %}
 		<li>
-		{{t.name}}-{{t.faculty}}
+			Facultat a la cual pertany: {{titulacio.faculty}}
 		</li>
-	{% endfor %}
 	</ul>
-	{% else %}
-	<p>No titulacions.</p>
-	{% endif %}
-	<h1>Cursos existens</h1>
-	{% if curs %}
-	<ul>
-	{% for c in curs %}
-		<li>
-		{{c.year}}-{{c.titulacio}}
-		</li>
-	{% endfor %}
-	</ul>
-	{% else %}
-	<p>No Cursos.</p>
-	{% endif %}
-	<h1>Aules existens</h1>
-	{% if aula %}
-	<ul>
-	{% for a in aula %}
-		<li>
-
-		{{a.name}}<br>Capacity: {{a.capacity}}<br>Curs: {{a.curs}}<br>
-		</li>
-	{% endfor %}
-	</ul>
-	{% else %}
-	<p>No aules.</p>
-	{% endif %}
-	<h1>Alumnes existens</h1>
-	{% if alumne %}
-	<ul>
-	{% for a in alumne %}
-		<li>
-		{{a.name}}
-			<ul>
-				<li>{{a.nif}}</li>
-			</ul>
-		</li>
-	{% endfor %}
-	</ul>
-	{% else %}
-	<p>No alumnes.</p>
-	{% endif %}
-	<h1> Professors existens</h1>
-	{% if prof %}
-	<ul>
-	{% for p in prof %}
-		<li>
-
-		{{p.name}}<br>nif: {{p.nif}}<br>
-		</li>
-	{% endfor %}
-	</ul>
-	{% else %}
-	<p>No aules.</p>
-	{% endif %}
-	</body>
+	<a href="/titulacions/{{titulacio.id}}/?format=json">Veure informació en format JSON</a>
+{%else%}
+<p>L'informacio de la titulacio encara no esta disponible</p>
+{%endif%}
+</body>
 </html>

@@ -5,6 +5,10 @@ from django.template.loader import get_template
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from isobres.models import *
+import json#, XMLObject
+from json import JSONEncoder
+from django.utils import simplejson
+from django.core import serializers
 
 def mainpage(request):
 	return render_to_response(
@@ -32,7 +36,7 @@ def userpage(request):
 	output = template.render(variables)
 	return HttpResponse(output)
 
-def titulacio(request):
+def informacio(request):
 	try:
 		tit = Titulacio.objects.all()
 		curs = Curs.objects.all()
@@ -41,7 +45,7 @@ def titulacio(request):
 		p = Professor.objects.all()
 	except:
 		raise Http404('Informacio not found')
-	template = get_template('titulacio.html')
+	template = get_template('informacio.html')
 	var = Context({
 		'titulacio': tit,
 		'curs':curs,
@@ -52,3 +56,88 @@ def titulacio(request):
 
 	output = template.render(var)
 	return HttpResponse(output)
+
+def indexmodel (request, model):
+	#print model
+	try:
+		objectmodel = model.objects.all()
+	except:
+		raise Http404('Informacio not found')
+	template = get_template(model+'.html')
+	var = Context({
+		model: objectmodel,
+		})
+	output = template.render(var)
+	return HttpResponse(output)
+
+def httpReturn(ficherohtml, key, value ):
+	template = get_template(ficherohtml)
+	var = Context({
+		key: value,
+		'titol': 'informacio sobre '+key,
+		'capcalera': key,
+		})
+	output = template.render(var)
+	return HttpResponse(output)
+
+
+def aula (request, aula,xml=None):
+	if xml is None:
+		try:
+			aula = Aula.objects.get(id = aula)
+		except:
+			raise Http404('Informacio not found')
+		return httpReturn("aula.html", 'aula', aula)
+	else:
+		return xmlResponse(Aula)
+
+def titulacio (request, titulacio, xml=None):
+	if xml is None:
+		try:
+			tit = Titulacio.objects.get(name = titulacio)
+		except:
+			raise Http404('Informacio not found')
+		return httpReturn("titulacio.html", 'titulacio', tit)		
+	else:
+		return xmlResponse(Titulacio)
+	
+def xmlResponse(model):
+
+	XMLSerializer = serializers.get_serializer("xml")
+	xml_serializer = XMLSerializer()
+	xml_serializer.serialize(model.objects.all())
+	data = xml_serializer.getvalue()
+	f = open("xml", "w")
+	print >>f, data
+	print data
+	f.close()
+	return HttpResponse(data, content_type="isobres/html+xml")
+
+def alumne(request, alumne, xml=None):
+	if xml is None:
+		try:
+			alu = Alumne.objects.get(name = alumne)
+		except:
+			raise Http404('Informacio not found')
+		return httpReturn("alumne.html", 'alumne', alu)
+	else:
+		return xmlResponse(Alumne)
+def curs(request, curs, xml=None):
+	if xml is None:
+		try:
+			curs = Curs.objects.get(year = curs)
+		except:
+			raise Http404('Informacio not found')
+		return httpReturn("curs.html", 'curs', curs)
+	else:
+		return xmlResponse(Curs)
+
+def professor(request, prof, xml=None):
+	if xml is None:
+		try:
+			prof = Professor.objects.get(name = prof)
+		except:
+			raise Http404('Informacio not found')
+		return httpReturn("professor.html", 'professor', prof)
+	else: 
+		return xmlResponse(Professor)

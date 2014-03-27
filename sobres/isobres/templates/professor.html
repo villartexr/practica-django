@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>{{capcalera}}</title>
+	</head>
+<body>
+{%if professor%}	
+<h1>{{titol}} {{professor.year}}</h1>
+	<ul>
+		<li>cursos en els quals fa clase:</li> 
+			<ul>
+				
+				{%for curs in professor.curs.all%}
+				<li>{{curs}}</li>
+				{%endfor%}
+			</ul>
+	</ul>
+	<a href="/professors/{{professor.id}}/?format=json">Veure informació en format JSON</a>
+{%else%}
+<p>L'informacio del professor encara no esta disponible</p>
+{%endif%}
+</body>
+</html>
