@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<django-objects version="1.0"><object pk="1" model="isobres.professor"><field type="CharField" name="name">Paqito</field><field type="IntegerField" name="nif">7</field><field to="isobres.curs" name="curs" rel="ManyToManyRel"><object pk="1"></object><object pk="2"></object></field></object></django-objects>
+<django-objects version="1.0"><object pk="1" model="isobres.curs"><field type="IntegerField" name="year">1</field><field to="isobres.titulacio" name="titulacio" rel="ManyToOneRel">1</field></object><object pk="2" model="isobres.curs"><field type="IntegerField" name="year">2</field><field to="isobres.titulacio" name="titulacio" rel="ManyToOneRel">2</field></object></django-objects>
