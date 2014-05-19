@@ -6,9 +6,17 @@ from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
 from isobres.models import *
 import json#, XMLObject
+from forms import *
 from json import JSONEncoder
-from django.utils import simplejson
+#from django.utils import simplejson
 from django.core import serializers
+from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
+
+
+
 
 def mainpage(request):
 	return render_to_response(
@@ -18,8 +26,16 @@ def mainpage(request):
 		'contentbody':'managing non legalfunding since 2013',
 		'user':request.user
 		})
-	#output = template.render(variables)
-	#return HttpResponse(output)
+	output = template.render(variables)
+	return HttpResponse(output)
+
+
+
+
+
+
+
+
 
 def userpage(request, username):
 	try:
@@ -36,26 +52,76 @@ def userpage(request, username):
 	output = template.render(variables)
 	return HttpResponse(output)
 
-def informacio(request):
+def cursList(request):
+
 	try:
-		tit = Titulacio.objects.all()
 		curs = Curs.objects.all()
-		aula = Aula.objects.all()
-		alumne = Alumne.objects.all()
-		p = Professor.objects.all()
+
+	
 	except:
 		raise Http404('Informacio not found')
-	template = get_template('informacio.html')
+	template = get_template('cursos.html')
 	var = Context({
-		'titulacio': tit,
 		'curs':curs,
-		'aula':aula,
-		'alumne':alumne,
-		'prof':p,
+		'user':request.user
 		})
 
 	output = template.render(var)
 	return HttpResponse(output)
+
+def profList(request):
+	try:
+		p = Professor.objects.all()
+	except:
+		raise Http404('Informacio not found')
+	template = get_template('profs.html')
+	var = Context({
+		'prof':p,
+		'user':request.user
+
+		})
+	output = template.render(var)
+	return HttpResponse(output)
+
+def auList(request):
+	try:
+		aula = Aula.objects.all()
+	except:
+		raise Http404('Informacio not found')
+	template = get_template('aules.html')
+	var = Context({
+		'aula':aula,
+		'user':request.user
+		})
+	output = template.render(var)
+	return HttpResponse(output)
+def alumList(request):
+	try:
+		alumne = Alumne.objects.all()
+	except:
+		raise Http404('Informacio not found')
+	template = get_template('alums.html')
+	var = Context({
+		'alumne':alumne,
+		'user':request.user
+		})
+	output = template.render(var)
+	return HttpResponse(output)
+
+def titList(request):
+	try:
+		tit = Titulacio.objects.all()
+	except:
+		raise Http404('Informacio not found')
+	template = get_template('tit.html')
+	var = Context({
+		'titulacio': tit,
+		'user':request.user
+		})
+	output = template.render(var)
+	return HttpResponse(output)
+
+
 
 def indexmodel (request, model):
 	#print model
@@ -76,6 +142,7 @@ def httpReturn(ficherohtml, key, value ):
 		key: value,
 		'titol': 'informacio sobre '+key,
 		'capcalera': key,
+
 		})
 	output = template.render(var)
 	return HttpResponse(output)
@@ -94,7 +161,7 @@ def aula (request, aula,xml=None):
 def titulacio (request, titulacio, xml=None):
 	if xml is None:
 		try:
-			tit = Titulacio.objects.get(name = titulacio)
+			tit = Titulacio.objects.get(idTitulacio = titulacio)
 		except:
 			raise Http404('Informacio not found')
 		return httpReturn("titulacio.html", 'titulacio', tit)		
@@ -114,18 +181,19 @@ def xmlResponse(model):
 	return HttpResponse(data, content_type="isobres/html+xml")
 
 def alumne(request, alumne, xml=None):
+
 	if xml is None:
 		try:
-			alu = Alumne.objects.get(name = alumne)
+			alu = Alumne.objects.get(idAlumne = alumne)
 		except:
-			raise Http404('Informacio not found')
+			raise Http404('22222222222 not found')
 		return httpReturn("alumne.html", 'alumne', alu)
 	else:
 		return xmlResponse(Alumne)
 def curs(request, curs, xml=None):
 	if xml is None:
 		try:
-			curs = Curs.objects.get(year = curs)
+			curs = Curs.objects.get(idCurs = curs)
 		except:
 			raise Http404('Informacio not found')
 		return httpReturn("curs.html", 'curs', curs)
@@ -135,9 +203,167 @@ def curs(request, curs, xml=None):
 def professor(request, prof, xml=None):
 	if xml is None:
 		try:
-			prof = Professor.objects.get(name = prof)
+			prof = Professor.objects.get(idProfessor = prof)
 		except:
 			raise Http404('Informacio not found')
 		return httpReturn("professor.html", 'professor', prof)
 	else: 
 		return xmlResponse(Professor)
+
+
+
+
+
+
+class AlumneDetail (DetailView):
+	model = Alumne
+	template_name = 'alumne.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(AlumneDetail, self).get_context_data(**kwargs)
+		return context
+
+
+class ProfessorDetail (DetailView):
+	model = Professor
+	template_name = 'professor.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ProfessorDetail, self).get_context_data(**kwargs)
+		return context
+
+
+class AulaDetail (DetailView):
+	model = Aula
+	template_name = 'aula.html'
+
+
+	def get_context_data(self, **kwargs):
+		context = super(AulaDetail, self).get_context_data(**kwargs)
+		return context		
+
+class CursDetail (DetailView):
+	model = Curs
+	template_name = 'curs.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(CursDetail, self).get_context_data(**kwargs)
+		return context
+class TitulacioDetail (DetailView):
+	model = Titulacio
+	template_name = 'titulacio.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(TitulacioDetail, self).get_context_data(**kwargs)
+		return context
+
+
+
+
+class AlumneCreate(CreateView):
+	model = Alumne
+	print model
+
+	template_name = 'form.html'
+	form_class = AlumneForm
+	print form_class
+	def form_valid(self, form):
+		form.instance.user=self.request.user
+
+		return super(AlumneCreate, self).form_valid(form)
+
+
+class ProfessorCreate(CreateView):
+	model = Professor
+	template_name = 'form.html'
+	form_class = ProfessorForm
+	def form_valid(self, form):
+		form.instance.user=self.request.user
+		return super(ProfessorCreate, self).form_valid(form)
+
+
+
+class AulaCreate(CreateView):
+	model = Aula
+	template_name = 'form.html'
+	form_class = AulaForm
+	def form_valid(self, form):
+		form.instance.user=self.request.user
+		return super(AulaCreate, self).form_valid(form)
+
+
+class CursCreate(CreateView):
+	model = Curs
+	template_name = 'form.html'
+	form_class = CursForm
+	def form_valid(self, form):
+		form.instance.user=self.request.user
+		return super(CursCreate, self).form_valid(form)
+
+
+
+
+class TitulacioCreate(CreateView):
+	model = Titulacio
+	template_name = 'form.html'
+	form_class = TitulacioForm
+	def form_valid(self, form):
+		form.instance.user=self.request.user
+		return super(TitulacioCreate, self).form_valid(form)
+
+
+
+
+class AulaDelete (DeleteView):
+
+	model = Aula
+	template_name = 'delete.html'
+	success_url = reverse_lazy('auList', kwargs={})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+""""
+def informacio(request):
+	try:
+		tit = Titulacio.objects.all()
+		curs = Curs.objects.all()
+		aula = Aula.objects.all()
+		alumne = Alumne.objects.all()
+		p = Professor.objects.all()
+
+	except:
+		raise Http404('Informacio not found')
+	template = get_template('informacio.html')
+	var = Context({
+		'titulacio': tit,
+		'curs':curs,
+		'aula':aula,
+		'alumne':alumne,
+		'prof':p,
+		})
+	output = template.render(var)
+	return HttpResponse(output)"""

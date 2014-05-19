@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Informacio de la Base de Dades</title>
+	</head>
+	<body>
+		<h1>Cursos </h1>
+	{% if curs %}
+	<ul>
+	{% for c in curs %}
+		<li>
+		<a href="/cursos/{{c.id}}">{{c.year}} curs de {{c.titulacio}}</a>
+		</li>
+	{% endfor %}
+	</ul>
+	<p>Per descarregar la informacio cursos en xml cliqui <a href="/cursinfo/1/xml">aqui</a></p>
+	{% else %}
+	<p>No Cursos.</p>
+	{% endif %}
+
+
+
+	</body>
+</html>

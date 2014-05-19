@@ -4,18 +4,26 @@
 	</head>
 	<body>
 		<h1>{{pagetitle}}</h1>
-	</body>
+	
 	
 		{%if user.username%}
 	<p>	
-
+		{{user.id}}
 		Benvingut {{user.username}}!
 		aquí podra gestionar les aules
+
+	<a href="alumnes/create/">afegir alumne</a>
+	<a href="aules/create/">afegir aula</a>
+	<a href="titulacions/create/">afegir tit</a>+
+	<a href="cursos/create/">afegir curs</a>
+
+
 	</p>
 	{%else%}
 	<p> Per entrar a la pagina ha de login:
 	Fer <a href="/login/">sign in</a>per gestionar aules 
 	</p>
 	{%endif%}
+
 </body>
 </html>

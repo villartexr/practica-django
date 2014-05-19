@@ -1,0 +1,23 @@
+
+<html>
+<head>
+<title>Informacio de la Base de Dades</title>
+	</head>
+	<body>
+	<h1>Titulacions </h1>
+	{% if titulacio %}
+	<ul>
+	{% for t in titulacio %}
+		<li>
+			<a href="/titulacions/{{t.id}}">{{t.name}}</a>
+		
+		</li>
+	{% endfor %}
+	</ul>
+	<p>Per descarregar la informacio de titulacions en xml cliqui <a href="/titulacionsinfo/ADE/xml">aqui</a></p>
+	{% else %}
+	<p>No titulacions.</p>
+	{% endif %}
+
+	</body>
+</html>

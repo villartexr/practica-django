@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Informacio de la Base de Dades</title>
+	</head>
+	<body>
+			<h1>Alumnes</h1>
+	{% if alumne %}
+	<ul>
+	{% for a in alumne %}
+		<li>
+		<a href="/alumnes/{{a.id}}">{{a.name}}</a>
+		</li>
+	{% endfor %}
+	</ul>
+	<p>Per descarregar la informacio d'alumnes en xml cliqui <a href="/alumnesinfo/ADE/xml">aqui</a></p>
+	{% else %}
+	<p>No alumnes.</p>
+	{% endif %}
+	
+
+
+
+	</body>
+</html>
