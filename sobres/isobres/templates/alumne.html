@@ -3,6 +3,7 @@
 <title>{{capcalera}}</title>
 	</head>
 <body>
+
 {%if alumne%}	
 <h1>{{titol}} {{alumne.name}}</h1>
 	<ul>
@@ -20,9 +21,15 @@
 			</ul>
 		</li>
 	</ul>
-	<a href="/aalumnes/{{alumne.idAlumne}}/?format=json">Veure informació en format JSON</a>
+	{% if user == alumne.user%}
+		<p> <a href = "{{alumne.id}}/edit/"> Modificar alumne </a></p>
+		<p> <a href = "{{alumne.id}}/delete/"> Eliminar alumne </a></p>
+	{% endif %}
+	<a href="/aalumnes/{{alumne.id}}/?format=json">Veure informació en format JSON</a>
 {%else%}
 <p>L'informacio de l'alumne encara no esta disponible</p>
 {%endif%}
+
+
 </body>
 </html>

@@ -13,6 +13,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
+from isobres.serializers import *
 
 
 
@@ -90,11 +91,22 @@ urlpatterns = patterns('',
         UpdateView.as_view(model = Aula, 
         template_name = 'form.html',
         form_class = AulaForm), name='aula_edit'),
-
-    url(r'^professors/(?P<pk>\d+)/edit/$',ProfessorDetail.as_view(), name='professor'),
-    url(r'^alumnes/(?P<pk>\d+)/edit/$',AlumneDetail.as_view(), name='alumne'),
-    url(r'^titulacions/(?P<pk>\d+)/edit/$',TitulacioDetail.as_view(), name='titulacio'),
-    url(r'^cursos/(?P<pk>\d+)/edit/$',CursDetail.as_view(), name='curs'),
+    url(r'^professors/(?P<pk>\d+)/edit/$',
+        UpdateView.as_view(model= Professor,
+        template_name = 'form.html',
+        form_class=ProfessorForm), name='professor_edit'),
+    url(r'^alumnes/(?P<pk>\d+)/edit/$',
+        UpdateView.as_view(model=Alumne,
+        template_name = 'form.html',
+        form_class = AlumneForm), name='alumne_edit'),
+    url(r'^titulacions/(?P<pk>\d+)/edit/$',
+        UpdateView.as_view(model = Titulacio,
+        template_name = 'form.html',
+        form_class = TitulacioForm), name='titulacio_edit'),
+    url(r'^cursos/(?P<pk>\d+)/edit/$',
+        UpdateView.as_view(model = Curs,
+        template_name = 'form.html',
+        form_class = CursForm), name='curs'),
 
        
     # al loro ralf que s'ha de modificar
@@ -127,4 +139,19 @@ urlpatterns = patterns('',
     url(r'^cursinfo/(\w+)/(\w+)/$', curs),
     url(r'^professorsinfo/(\w+)/(\w+)/$', professor),
 )
+
+
+urlpatterns += patterns('',
+    url(r'^api/aules/$',APIAulaList.as_view(), name = 'aula-list'),
+    url(r'^api/aules/(?P<pk>\d+)$',APIAulaDetail.as_view(), name = 'aula-detail'),
+    url(r'^api/titulacions/$',APIAulaList.as_view(), name = 'titulacions-list'),
+    url(r'^api/titulacions/(?P<pk>\d+)$',APITitulacionsDetail.as_view(), name = 'titulacions-detail'),
+    url(r'^api/alumnes/$',APIAlumneList.as_view(), name = 'alumnes-list'),
+    url(r'^api/alumnes/(?P<pk>\d+)$',APIAlumneDetail.as_view(), name = 'alumnes-detail'),
+    url(r'^api/cursos/$',APICursList.as_view(), name = 'cursos-list'),
+    url(r'^api/cursos/(?P<pk>\d+)$',APICursDetail.as_view(), name = 'cursos-detail'),
+    url(r'^api/professors/$',APIProfessorList.as_view(), name = 'professors-list'),
+    url(r'^api/professors/(?P<pk>\d+)$',APIProfessorDetail.as_view(), name = 'professors-detail'),
+
+    )
 

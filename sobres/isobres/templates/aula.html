@@ -13,6 +13,10 @@
 	    	Curs: {{aula.curs}}
 		</li>
 	</ul>
+	{% if user == aula.user%}
+		<p> <a href = "{{aula.id}}/edit/"> Modificar aula </a></p>
+		<p> <a href = "{{aula.id}}/delete/"> Eliminar aula </a></p>
+	{% endif %}
 	<a href="/aaules/{{aula.id}}/?format=json">Veure informació en format JSON</a>
 {%else%}
 <p>L'informacio de l'aula encara no esta disponible</p>

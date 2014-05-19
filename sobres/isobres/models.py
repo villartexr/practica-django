@@ -57,6 +57,8 @@ class Aula(models.Model):
 class Alumne(models.Model):
 	name = models.CharField(max_length=40)
 	nif = models.IntegerField(max_length=8)
+	country = models.CharField(max_length=60)
+	city = models.CharField(max_length=60)
 	curs = models.ManyToManyField(Curs)
 	user = models.ForeignKey(User, default=get_default_user)
 	def __unicode__(self):

@@ -10,6 +10,10 @@
 			Titulacio a la qual pertany: {{curs.titulacio}}
 		</li>
 	</ul>
+	{% if user == curs.user%}
+		<p> <a href = "{{curs.id}}/edit/"> Modificar curs </a></p>
+		<p> <a href = "{{curs.id}}/delete/"> Eliminar curs </a></p>
+	{% endif %}
 	<a href="/acursos/{{curs.id}}/?format=json">Veure informació en format JSON</a>
 {%else%}
 <p>L'informacio del curs encara no esta disponible</p>

@@ -10,7 +10,10 @@
 			Facultat a la cual pertany: {{titulacio.faculty}}
 		</li>
 	</ul>
-	soc la id: {{titulacio.id}}
+	{% if user == titulacio.user%}
+		<p> <a href = "{{titulacio.id}}/edit/"> Modificar Titulacio </a></p>
+		<p> <a href = "{{titulacio.id}}/delete/"> Eliminar Titulacio </a></p>
+	{% endif %}
 	<a href="/atitulacions/{{titulacio.id}}/?format=json">Veure informació en format JSON</a>
 {%else%}
 <p>L'informacio de la titulacio encara no esta disponible</p>

@@ -14,6 +14,10 @@
 				{%endfor%}
 			</ul>
 	</ul>
+	{% if user == professor.user%}
+		<p> <a href = "{{professor.id}}/edit/"> Modificar professor </a></p>
+		<p> <a href = "{{professor.id}}/delete/"> Eliminar professor </a></p>
+	{% endif %}
 	<a href="/aprofessors/{{professor.id}}/?format=json">Veure informació en format JSON</a>
 {%else%}
 <p>L'informacio del professor encara no esta disponible</p>

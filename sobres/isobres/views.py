@@ -14,6 +14,11 @@ from django.core.urlresolvers import reverse_lazy
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
+from rest_framework import generics, permissions
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+from isobres.serializers import *
 
 
 
@@ -323,47 +328,42 @@ class AulaDelete (DeleteView):
 
 
 
+class APIAulaList(generics.ListCreateAPIView):
+	model= Aula
+	serializer_class = AulaSerializer
 
+class APIAulaDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Aula
+	serializer_class = AulaSerializer
 
+class APIAlumneList(generics.ListCreateAPIView):
+	model= Alumne
+	serializer_class = AlumneSerializer
 
+class APIAlumneDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Alumne
+	serializer_class = AlumneSerializer
 
+class APIProfessorList(generics.ListCreateAPIView):
+	model= Professor
+	serializer_class = ProfessorSerializer
 
+class APIProfessorDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Professor
+	serializer_class = ProfessorSerializer
 
+class APICursList(generics.ListCreateAPIView):
+	model= Curs
+	serializer_class = CursSerializer
 
+class APICursDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Curs
+	serializer_class = CursSerializer
 
+class APITitulacioList(generics.ListCreateAPIView):
+	model= Titulacio
+	serializer_class = TitulacioSerializer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-""""
-def informacio(request):
-	try:
-		tit = Titulacio.objects.all()
-		curs = Curs.objects.all()
-		aula = Aula.objects.all()
-		alumne = Alumne.objects.all()
-		p = Professor.objects.all()
-
-	except:
-		raise Http404('Informacio not found')
-	template = get_template('informacio.html')
-	var = Context({
-		'titulacio': tit,
-		'curs':curs,
-		'aula':aula,
-		'alumne':alumne,
-		'prof':p,
-		})
-	output = template.render(var)
-	return HttpResponse(output)"""
+class APITitulacioDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = Titulacio
+	serializer_class = TitulacioSerializer
