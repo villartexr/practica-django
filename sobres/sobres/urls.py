@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from isobres.serializers import *
+from rest_framework.urlpatterns import format_suffix_patterns
 
 
 
@@ -65,13 +66,11 @@ urlpatterns = patterns('',
 
 
     url(r'^cursos/$', cursList, name='cursList'),
-    url(r'^professors/$', profList),
-    url(r'^aules/$', auList),
-    url(r'^alumnes/$', alumList),
-    url(r'^titulacions/$', titList),
 
-    
-
+    url(r'^aules/$', auList, name='auList'),
+    url(r'^titulacions/$', titList, name= 'titList'),
+    url(r'^alumnes/$', alumList, name='alumList'),
+    url(r'^professors/$', profList, name = 'profList'),
 
 
 
@@ -109,13 +108,26 @@ urlpatterns = patterns('',
         form_class = CursForm), name='curs'),
 
        
-    # al loro ralf que s'ha de modificar
+    # al loro que s'ha de modificar
 
 
 
-     url(r'^aules/(?P<pk>\d+)/delete/$',
+    url(r'^aules/(?P<pk>\d+)/delete/$',
         AulaDelete.as_view(), 
         name='aula_delete'),
+
+    url(r'^alumnes/(?P<pk>\d+)/delete/$',
+        AlumneDelete.as_view(), 
+        name='alumne_delete'),
+
+    url(r'^titulacions/(?P<pk>\d+)/delete/$',
+        TitulacioDelete.as_view(), 
+        name='titulacio_delete'),
+
+    url(r'^cursos/(?P<pk>\d+)/delete/$',
+        CursDelete.as_view(), 
+        name='curs_delete'),
+
 
 
 
@@ -155,3 +167,4 @@ urlpatterns += patterns('',
 
     )
 
+#urlpatterns = format_suffix_patterns(urlpatterns, allowed=['api' ,'json', 'xml'])

@@ -323,8 +323,27 @@ class AulaDelete (DeleteView):
 
 	model = Aula
 	template_name = 'delete.html'
-	success_url = reverse_lazy('auList', kwargs={})
+	success_url = reverse_lazy('auList')
 
+class AlumneDelete (DeleteView):
+	model = Alumne
+	template_name = 'delete.html'
+	success_url = reverse_lazy('alumList')
+
+class TitulacioDelete (DeleteView):
+	model = Titulacio
+	template_name = 'delete.html'
+	success_url = reverse_lazy('titList')
+
+class ProfessorDelete (DeleteView):
+	model = Professor
+	template_name = 'delete.html'
+	success_url = reverse_lazy('profList')
+
+class CursDelete (DeleteView):
+	model = Curs
+	template_name = 'delete.html'
+	success_url = reverse_lazy('cursList')
 
 
 
@@ -364,6 +383,6 @@ class APITitulacioList(generics.ListCreateAPIView):
 	model= Titulacio
 	serializer_class = TitulacioSerializer
 
-class APITitulacioDetail(generics.RetrieveUpdateDestroyAPIView):
+class APITitulacionsDetail(generics.RetrieveUpdateDestroyAPIView):
 	model = Titulacio
 	serializer_class = TitulacioSerializer
