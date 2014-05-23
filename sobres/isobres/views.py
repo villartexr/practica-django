@@ -335,11 +335,6 @@ class TitulacioDelete (DeleteView):
 	template_name = 'delete.html'
 	success_url = reverse_lazy('titList')
 
-class ProfessorDelete (DeleteView):
-	model = Professor
-	template_name = 'delete.html'
-	success_url = reverse_lazy('profList')
-
 class CursDelete (DeleteView):
 	model = Curs
 	template_name = 'delete.html'

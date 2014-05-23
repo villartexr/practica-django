@@ -2,6 +2,7 @@
 <html>
 {% load staticfiles %}
 <head>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" media="screen" />
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
@@ -12,7 +13,6 @@
                     source: countries
                 });
             });
-
             $("#id_city").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
@@ -47,23 +47,15 @@
             });
         });
     </script>
-
-
-
-	Emplena el formulari ralph
 </head>
 <body>
- <form method="post" enctype="multipart/form-data" action="">
+	<h1>Emplena el formulari</h1>
+	<form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
         <input type="submit" value="Enviar"/>
- </form>
- <form method="post" enctype="multipart/form-data" action="">
- 	<label for="city">Your city: </label>
- 	<input id='city'>
- </form>
+	</form>
 </body>
-
 </html>

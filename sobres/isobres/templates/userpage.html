@@ -1,22 +1,22 @@
-
 <html>
 <head>
-<title>{{ username }} Sobres</title>
-	</head>
-	<body>
+	<title>{{ username }} Sobres</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" media="screen" />
+</head>
+<body>
 	<h1>Sobres rebuts per {{ username }}</h1>
 	{% if sobres %}
-	<ul>
-	{% for sobre in sobres %}
-		<li>
-		{{sobre.donor.name}}
-		- {{ sobre.concept}} - {{ sobre.amount }}€
-		</li>
-	{% endfor %}
-	</ul>
+		<ul>
+		{% for sobre in sobres %}
+			<li>
+			{{sobre.donor.name}}
+			- {{ sobre.concept}} - {{ sobre.amount }}€
+			</li>
+		{% endfor %}
+		</ul>
 	{% else %}
-	<p>No ha rebut sobres.</p>
+		<p>No ha rebut sobres.</p>
 	{% endif %}
 	<a href="create/{{user.id}}">afegir alumne</a>
-	</body>
+</body>
 </html>

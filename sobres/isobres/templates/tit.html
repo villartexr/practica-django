@@ -1,26 +1,23 @@
 
 <html>
 <head>
-<title>Informacio de la Base de Dades</title>
-	</head>
-	<body>
+	<title>Informacio de la Base de Dades</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" media="screen" />
+</head>
+<body>
 	<h1>Titulacions </h1>
 	{% if titulacio %}
-	<ul>
-	{% for t in titulacio %}
-		<li>
-			<a href="/titulacions/{{t.id}}">{{t.name}}</a>
-		
-		</li>
-	{% endfor %}
-	</ul>
-	user={{user}}
-	tit_user={{titulacio.user}}
-	
-	<p>Per descarregar la informacio de titulacions en xml cliqui <a href="/titulacionsinfo/ADE/xml">aqui</a></p>
+		<ul>
+			{% for t in titulacio %}
+				<li>
+					<a href="/titulacions/{{t.id}}">{{t.name}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<p>Per descarregar la informacio de titulacions en xml cliqui <a href="/titulacionsinfo/ADE/xml">aqui</a></p>
+		<p> <input type="button" onclick="window.location.href='create/'" value="NOVA TITULACIO"/></p>
 	{% else %}
-	<p>No titulacions.</p>
+		<p>No titulacions.</p>
 	{% endif %}
-
-	</body>
+</body>
 </html>

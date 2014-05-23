@@ -1,35 +1,34 @@
 <html>
 <head>
-<title>{{capcalera}}</title>
-	</head>
+	<title>{{capcalera}}</title>
+	<link rel="stylesheet" type="text/css" href="../../css/style.css" media="screen" />
+</head>
 <body>
-
-{%if alumne%}	
-<h1>{{titol}} {{alumne.name}}</h1>
-	<ul>
-		<li>
-			NIF alumne: {{alumne.nif}}
-		</li>
-		<li>
-			CURS alumne: 
-			<ul>
-				{%for curs in alumne.curs.all%}
-				<li>
-					{{curs}}
-				</li>
-				{%endfor%}
-			</ul>
-		</li>
-	</ul>
-	{% if user == alumne.user%}
-		<p> <a href = "{{alumne.id}}/edit/"> Modificar alumne </a></p>
-		<p> <a href = "{{alumne.id}}/delete/"> Eliminar alumne </a></p>
-	{% endif %}
-	<a href="/aalumnes/{{alumne.id}}/?format=json">Veure informació en format JSON</a>
-{%else%}
-<p>L'informacio de l'alumne encara no esta disponible</p>
-{%endif%}
-
-
+	{%if alumne%}	
+		<h1>{{titol}} {{alumne.name}}</h1>
+		<ul>
+			<li>
+				NIF alumne: {{alumne.nif}}
+			</li>
+			<li>
+				CURS alumne: 
+				<ul>
+					{%for curs in alumne.curs.all%}
+					<li>
+						{{curs}}
+					</li>
+					{%endfor%}
+				</ul>
+			</li>
+		</ul>
+		{% if user == alumne.user%}
+			<p> <input type="button" onclick="window.location.href='{{alumne.id}}/edit/'" value="EDITAR"/></p>
+			<p> <input type="button" onclick="window.location.href='{{alumne.id}}/delete/'" value="ELIMINAR"/></p>
+		{% endif %}
+		<a href="/aalumnes/{{alumne.id}}/?format=json">Veure informació en format JSON</a>
+		<p><a href="/alumnes/"> Veure tots els alumnes </a></p>
+	{%else%}
+		<p>L'informacio de l'alumne encara no esta disponible</p>
+	{%endif%}
 </body>
 </html>
