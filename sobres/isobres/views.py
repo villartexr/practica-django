@@ -19,10 +19,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from isobres.serializers import *
-
-
-
-
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from serializers import *
 def mainpage(request):
 	return render_to_response(
 		'mainpage.html', {
@@ -35,7 +34,17 @@ def mainpage(request):
 	return HttpResponse(output)
 
 
-
+def review(request, idAlumne):
+    print "Genis guapo"
+    alumne = get_object_or_404(Alumne, idAlumne=idAlumne)
+    review = AlumneReview(
+    	comment=request.POST['comment'],
+        #rating=request.POST['rating'],
+        
+        user=request.user,
+        alumne=alumne)
+    review.save()
+    return HttpResponseRedirect(reverse('alumne', args=(alumne.idAlumne,)))
 
 
 

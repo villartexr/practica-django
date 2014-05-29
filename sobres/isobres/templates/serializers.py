@@ -6,11 +6,13 @@ from isobres.models import *
 class AlumneSerializer(HyperlinkedModelSerializer):
 	url = HyperlinkedIdentityField(view_name='alumne-detail')
 	Curs = HyperlinkedRelatedField(many=True, read_only=True, view_name='curs-detail')
+	alumnereview_set = HyperlinkedRelatedField(many=True, read_only=True, view_name='alumne-detail')
 	user = CharField(read_only=True)
+
 
 	class Meta:
 		model = Alumne
-		fields = ('url', 'name', 'nif', 'country', 'city', 'curs', 'user')
+		fields = ('url', 'name', 'nif', 'country', 'city', 'curs', 'user', 'alumnereview_set')
 
 class ProfessorSerializer(HyperlinkedModelSerializer):
 	url = HyperlinkedIdentityField(view_name='professor-detail')

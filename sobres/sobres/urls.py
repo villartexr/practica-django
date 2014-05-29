@@ -129,7 +129,7 @@ urlpatterns = patterns('',
         name='curs_delete'),
 
 
-
+    url(r'^alumnes/(?P<idAlumne>\d+)/reviews/create$',review, name='review_create'),
 
 
 

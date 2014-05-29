@@ -55,6 +55,7 @@ class Aula(models.Model):
 	#	return reverse('Aula:Aula')
 
 class Alumne(models.Model):
+	idAlumne = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=40)
 	nif = models.IntegerField(max_length=8)
 	country = models.CharField(max_length=60)
@@ -67,4 +68,25 @@ class Alumne(models.Model):
 		#return "alumnesinfo/%i/" % self.id
 
 		return reverse('alumne', kwargs={'pk':self.pk})
+	def averageRating(self):
+		ratingSum = 0.0
+		for review in self.alumnereview_set.all():
+			ratingSum += review.rating
+		reviewCount = self.alumnereview_set.count()
+		return ratingSum/reviewCount
+		#fer en el serializers el alumnereview_set
+		
+
+class Review (models.Model):
+	RATING_CHOICES = ((1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'),(6,'6'),(7,'7'),(8,'8'),(9,'9'),(10,'10'))
+	rating = models.PositiveSmallIntegerField('Ratings (stars)', blank=True, default=5, choices=RATING_CHOICES)
+	comment = models.TextField(blank=True, null=True)
+	user = models.ForeignKey(User, default=get_default_user)
+	date = models.DateField(default=date.today)
+	
+	class Meta:
+		abstract = True
+		
+class AlumneReview (Review):
+	alumne = models.ForeignKey(Alumne)
 
