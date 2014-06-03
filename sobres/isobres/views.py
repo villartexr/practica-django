@@ -38,8 +38,8 @@ def review(request, idAlumne):
     print "Genis guapo"
     alumne = get_object_or_404(Alumne, idAlumne=idAlumne)
     review = AlumneReview(
+    	rating=request.POST['rating'],
     	comment=request.POST['comment'],
-        #rating=request.POST['rating'],
         
         user=request.user,
         alumne=alumne)
@@ -390,3 +390,12 @@ class APITitulacioList(generics.ListCreateAPIView):
 class APITitulacionsDetail(generics.RetrieveUpdateDestroyAPIView):
 	model = Titulacio
 	serializer_class = TitulacioSerializer
+	
+class APIAlumneReviewList(generics.ListCreateAPIView):
+	model=AlumneReview
+	serializer_class = AlumneReviewSerializer
+	
+class APIAlumneReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+	model = AlumneReview
+	serializer_class = AlumneReviewSerializer
+	
