@@ -164,6 +164,8 @@ urlpatterns += patterns('',
     url(r'^api/cursos/(?P<pk>\d+)$',APICursDetail.as_view(), name = 'cursos-detail'),
     url(r'^api/professors/$',APIProfessorList.as_view(), name = 'professors-list'),
     url(r'^api/professors/(?P<pk>\d+)$',APIProfessorDetail.as_view(), name = 'professors-detail'),
+    url(r'^api/alumnereview/$', APIAlumneReviewList.as_view(), name='alumnereview-list'),
+    url(r'^api/alumnereviews/(?P<idAlumne>\d+)/$', APIAlumneReviewDetail.as_view(), name='alumnereview-detail'),
 
     )
 
