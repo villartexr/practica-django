@@ -62,7 +62,8 @@ urlpatterns = patterns('',
     url(r'^user/(\w+)/$', userpage),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout'),
-   
+    
+
 
     url(r'^cursos/$', cursList, name='cursList'),
 
@@ -70,6 +71,8 @@ urlpatterns = patterns('',
     url(r'^titulacions/$', titList, name= 'titList'),
     url(r'^alumnes/$', alumList, name='alumList'),
     url(r'^professors/$', profList, name = 'profList'),
+
+
 
     url(r'^aules/create/$', AulaCreate.as_view(), name='aula_create'),
     url(r'^professors/create/$', ProfessorCreate.as_view(), name='professor_create'),
@@ -104,6 +107,11 @@ urlpatterns = patterns('',
         template_name = 'form.html',
         form_class = CursForm), name='curs'),
 
+       
+    # al loro que s'ha de modificar
+
+
+
     url(r'^aules/(?P<pk>\d+)/delete/$',
         AulaDelete.as_view(), 
         name='aula_delete'),
@@ -124,6 +132,24 @@ urlpatterns = patterns('',
     url(r'^alumnes/(?P<idAlumne>\d+)/reviews/create$',review, name='review_create'),
 
 
+
+
+
+
+    #url(r'^cursos/(\w+)/$', curs),
+    #url(r'^professors/(\w+)/$', professor),
+    #url(r'^aules/(\w+)/$', aula),
+    #url(r'^alumnes/(\w+)/$', alumne),
+    #url(r'^titulacions/(\w+)/$', titulacio),
+
+    #(?P<pk>\d+)
+
+    #info xml i json
+    #url(r'^titulacionsinfo/(\w+)/(\w+)/$', titulacio),
+    #url(r'^aulesinfo/(\w+)/(\w+)/$', aula),
+    #url(r'^alumnesinfo/(\w+)/(\w+)/$', alumne),
+    #url(r'^cursinfo/(\w+)/(\w+)/$', curs),
+    #url(r'^professorsinfo/(\w+)/(\w+)/$', professor),
 )
 
 

@@ -81,6 +81,7 @@
         <input type="radio" name="rating" value="9" />9
 	<input type="radio" name="rating" value="10" />10
 
+    {% endfor %}
     </p>
     <input type="submit" value="Review" />
 </form>
