@@ -35,7 +35,6 @@ def mainpage(request):
 
 
 def review(request, idAlumne):
-    print "Genis guapo"
     alumne = get_object_or_404(Alumne, idAlumne=idAlumne)
     review = AlumneReview(
     	rating=request.POST['rating'],
